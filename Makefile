@@ -3,7 +3,9 @@ PROJECTS = ltree
 
 clean_prefix = clean
 CLEANS = $(addprefix $(clean_prefix), $(PROJECTS))
-.PHONY: $(PROJECTS)
+
+run_prefix = run
+RUNS = $(addprefix $(run_prefix), $(PROJECTS))
 
 # ---> Compilation <--- #
 CXX = g++
@@ -17,6 +19,8 @@ header_dir = include
 target_dir = build
 
 # ---> Build rules <--- #
+.PHONY: $(PROJECTS)
+
 $(PROJECTS):
 	@echo "Making '$@'..."
 	@$(MAKE) choose_project PROJECT=$@
@@ -24,7 +28,6 @@ $(PROJECTS):
 choose_project:
 	$(eval sources := $(shell $(source_collector) $(PROJECT)))
 	$(eval objects := $(addprefix $(PROJECT)/$(target_dir)/, $(sources:.cpp=.o)))
-
 	@echo Creating objects from:
 	@$(MAKE) $(PROJECT)/$(target_dir)/$(PROJECT) objects="$(objects)" PROJECT=$(PROJECT)
 
@@ -45,4 +48,10 @@ cleanall:
 	rm -rf */$(target_dir)/
 
 $(CLEANS):
-	rm -rf $(subst $(clean_prefix),,$@)/$(target_dir)/
+	$(eval project_name = $(subst $(clean_prefix),,$@))
+	rm -rf $(project_name)/$(target_dir)/
+
+# ---> Code running <--- #
+$(RUNS): 
+	$(eval binary_name = $(subst $(run_prefix),,$@))
+	./$(binary_name)/$(target_dir)/$(binary_name) $(args)
