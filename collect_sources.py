@@ -14,7 +14,7 @@ def get_sources(app_dir):
         for ext in ['*.cpp', '*.c']:
             sources.extend(src_path.rglob(ext))
     for source in sources:
-        print(source)
+        print(source.name)
     
     return len(sources)
 
