@@ -1,0 +1,10 @@
+# ltree/.clangd
+CompileFlags:
+  CompilationDatabase: .
+  Add:
+    - -std=c++20
+    - -Iinclude
+    - -I../include
+
+If:
+  PathMatch: .*\.cpp
