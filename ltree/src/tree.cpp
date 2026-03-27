@@ -26,7 +26,7 @@ void print_directory(std::string filename, int depth, bool print_hidden) {
 
     std::cout 
     << GREEN 
-    << std::string(2 * (depth + 1), ' ') 
+    << std::string(2 * depth, ' ') 
     << filename
     << "\\\n" << RESET;   
 }
