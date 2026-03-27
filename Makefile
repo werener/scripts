@@ -36,12 +36,12 @@ $(PROJECT)/$(target_dir)/$(PROJECT): $(objects)
 	@mkdir -p $(@D)
 	@echo "\nCreating binary from:"
 	@for obj in $(objects); do printf "\t%s\n" "$$obj"; done
-	@$(CXX) $(flags) -I$(PROJECT)/$(header_dir) $^ -o $@
+	@$(CXX) $(flags) -I"$(PROJECT)/$(header_dir)" $^ -o $@
 
 $(PROJECT)/$(target_dir)/%.o: $(PROJECT)/$(src_dir)/%.cpp
 	@mkdir -p $(@D)
 	@echo -n "\t$<\n"
-	@$(CXX) $(flags) -I$(PROJECT)/$(header_dir) -c $< -o $@
+	@$(CXX) $(flags) -I"$(PROJECT)/$(header_dir)" -c $< -o $@
 
 # ---> Cleanup <--- #
 cleanall:
